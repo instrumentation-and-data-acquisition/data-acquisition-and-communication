@@ -1,30 +1,31 @@
 import pyqtgraph as pg
-from pyqtgraph.Qt import QtCore, QtGui, QtWidgets
+from PyQt5 import QtWidgets
+from pyqtgraph import PlotWidget, plot
+import sys
+import os
 import numpy as np
 
-title = "Data from Arduino"
+class MainWindow(QtWidgets.QMainWindow):
 
-x = [1, 2, 3]
-y = [1, 2, 3]
+    def __init__(self, *args, **kwargs):
+        super(MainWindow, self).__init__(*args, **kwargs)
 
-   # for i in range(0, 10):
-#        x[i] = i
- #       y[i] = i
-        
+        self.graphWidget = pg.PlotWidget()
+        self.setCentralWidget(self.graphWidget)
 
-plt = pg.plot()
-plt.showGrid(x = True, y = True) # vals só dif de 0 a oartir do inhdice 2
-plt.addLegend()
-plt.setLabel('left', 'Value', units='V')
-plt.setLabel('bottom', 'Time', units='s')
-plt.setXRange(0, 4)
-plt.setYRange(0, 4)
-plt.setWindowTitle(title)
+        hour = [1,2,3,4,5,6,7,8,9,10]
+        temperature = [30,32,34,32,33,31,29,32,35,45]
 
-line = plt.plot(x, y, pen='b', symbol='x', symbolPen='b', symbolBrush=0.2, name='red')
+        # plot data: x, y values
+        self.graphWidget.plot(hour, temperature)
+
+
+def main():
+    app = QtWidgets.QApplication(sys.argv)
+    main = MainWindow()
+    main.show()
+    sys.exit(app.exec_())
+
 
 if __name__ == '__main__':
-    import sys
-    
-    if(sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
-        QtWidgets.QApplication.instance()
+    main()
