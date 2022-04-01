@@ -12,18 +12,26 @@ class MainWindow(
 ):  #class made for creating the window and everything that needs to be done in it
 
     def __init__(self, *args, **kwargs):  #constructor of the class
+        super(MainWindow, self).__init__(*args, **kwargs)
 
-        self.graphWidget = pg.PlotWidget()
-        self.setCentralWidget(self.graphWidget)
-        self.startbutton = QPushButton('stop', self)
-        self.startbutton.clicked.connect(self.startMethod)
+        self.graphWidget = pg.PlotWidget(
+        )  #setting the window to have a graph widget
+        self.setCentralWidget(self.graphWidget)  # centring the graph
 
-        self.clearbutton = QPushButton('clear', self)
-        self.clearbutton.clicked.connect(self.clearMethod)
+        self.startbutton = QPushButton(
+            'Stop', self)  #creating a stop button to stop acquisition
+        self.startbutton.clicked.connect(
+            self.startMethod)  #calling the method to stop the acquisition
+
+        self.clearbutton = QPushButton(
+            'Clear',
+            self)  #creating a clear button to clear the graph and start again
+        self.clearbutton.clicked.connect(
+            self.clearMethod)  #calling the method to clear the graph
         self.clearbutton.move(120, 0)
 
-        self.x = list(range(100))  # 100 time points
-        self.y = [0] * 100  # 100 data points
+        self.x = list(range(100))  #graph displays 100 points from 0 to 99 on x
+        self.y = [600] * 100  #and 100 points at 0 initially for y
 
         self.i = 0  #iteration variable for update_plot_data fucntion
 
