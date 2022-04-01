@@ -22,7 +22,7 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
         self.clearbutton.move(120,0)
 
         self.x = list(range(100))  #graph displays 100 points from 0 to 99 on x
-        self.y = [600] * 100  #and 100 points at 0 initially for y
+        self.y = [0] * 100  #and 100 points at 0 initially for y
         
         self.i = 0 #iteration variable for update_plot_data fucntion
 
@@ -97,8 +97,9 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
             #    print(aux)
             #   self.y[self.i] = int(aux)
             #else:
-        self.y = self.y[1:]
-        self.y.append(int(aux))
+        if (aux.isdigit()):
+            self.y = self.y[1:]
+            self.y.append(int(aux))
             #++self.i
         #line = ser.readline().decode('utf-8').rstrip()
         print(aux)
