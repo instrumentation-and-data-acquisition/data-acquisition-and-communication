@@ -4,7 +4,8 @@ import os #used to check in which port the arduino connected to the raspberry pi
 import pyqtgraph as pg #used to create the window and the graph
 from pyqtgraph.Qt import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QPushButton
-from sys import exit #for closing the app
+import sys
+
 
 class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window and everything that needs to be done in it
 
@@ -69,7 +70,7 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
                 self.timer.stop() #stops the timer stopping the acquisition
             elif self.startbutton.text()=='Start': #if the button says start, then the graph is stopped
                 print("Resuming Acquisition...")
-                self.startbutton.setText('Stop') #changes the text to sgtop again
+                self.startbutton.setText('Stop') #changes the text to stop again
                 self.timer.start() #starts the timer to resume acquisition                
                 
     def clearMethod(self):
@@ -102,21 +103,19 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
         self.data_line.setData(self.x, self.y)  #updates the data to data_line
 
 
-if(os.path.exists('/dev/ttyACM0')):
+        self.data_line.setData(self.x, self.y)  # Update the data.
+if(os.path.exists('/dev/ttyACM0')): #since the path changes, choose path automatically 
     path='/dev/ttyACM0'
 if(os.path.exists('/dev/ttyACM1')):
     path='/dev/ttyACM1'
     
 if __name__ == '__main__':
-    ser = serial.Serial(path , 9600, timeout=1)
+    ser = serial.Serial(path , 9600, timeout=1) #Arduino conection
     ser.reset_input_buffer()
     
-    import sys
+    app = QtWidgets.QApplication(sys.argv) 
     
-    #else:
-    app = QtWidgets.QApplication(sys.argv)
-    
-    w = MainWindow()
-    w.initialQuestion()
-    w.show()
-    sys.exit(app.exec_())
+    w = MainWindow() #creates object from class
+    w.initialQuestion() #shows initial question
+    w.show() #shows window
+    sys.exit(app.exec_()) 
