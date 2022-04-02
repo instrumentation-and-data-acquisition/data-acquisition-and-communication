@@ -43,8 +43,8 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
         print("Deseja começar a aquisição?")
         self.option=input("Escreva start:\n") #gets input from the user and saves it to self.option
         ser.write(self.option.encode('utf-8')) #sends self.option to the serial for arduino to read
-        arduino = ser.readline().decode('utf-8').rstrip()
-        while (arduino == ''):
+        arduino = ser.readline().decode('utf-8').rstrip() #gets the output from arduino
+        while (arduino == ''): #checks for blank lines
             arduino = ser.readline().decode('utf-8').rstrip()
         print(arduino) #prints the message from arduino, FATAL ERROR if self.option is not start and
                        #the voltage value mapped to 0, 1023 if it is
@@ -85,26 +85,30 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
         #if (self.i == 0):
          #   self.initialQuestion
           #  ++self.i
-
-        self.x = self.x[1:]  # Remove the first y element.
-        self.x.append(self.x[-1] + 1)  # Add a new value 1 higher than the last.
         
-        
-        #if ser.in_waiting> 0:
         ser.write(self.option.encode('utf-8')) # quando dá fatal error dá erro
-        aux = ser.readline().decode('utf-8').rstrip()
-        
-        #if (aux):
-            #if (self.i < 100):
-            #    print(aux)
-            #   self.y[self.i] = int(aux)
-            #else:
-        if (aux.isdigit()):
-            self.y = self.y[1:]
-            self.y.append(int(aux))
-            #++self.i
-        #line = ser.readline().decode('utf-8').rstrip()
-        print(aux)
+        arduino = ser.readline().decode('utf-8').rstrip()
+
+        if(arduino != ''):
+
+            self.x = self.x[1:]  # Remove the first y element.
+            self.x.append(self.x[-1] + 1)  # Add a new value 1 higher than the last.
+            
+            
+            #if ser.in_waiting> 0:
+
+            
+            #if (aux):
+                #if (self.i < 100):
+                #    print(aux)
+                #   self.y[self.i] = int(aux)
+                #else:
+            if (aux.isdigit()):
+                self.y = self.y[1:]
+                self.y.append(int(arduino))
+                #++self.i
+            #line = ser.readline().decode('utf-8').rstrip()
+            print(arduino)
         #.sleep(1)
 
         self.data_line.setData(self.x, self.y)  # Update the data.
