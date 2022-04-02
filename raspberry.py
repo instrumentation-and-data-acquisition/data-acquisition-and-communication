@@ -40,32 +40,33 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
         sends the initial question to the user to start (or not) the acquisition
         saves the option the user picks in the variable self.option and then always sends it to arduino
         """
-        print("Deseja começar a aquisição?\n")
+        print("Deseja começar a aquisição?")
         self.option=input("Escreva start:\n") #gets input from the user and saves it to self.option
         ser.write(self.option.encode('utf-8')) #sends self.option to the serial for arduino to read
         dummyRead = ser.readline().decode('utf-8').rstrip() #arduino sends in a first line that is blank
         arduino = ser.readline().decode('utf-8').rstrip() # reads the proper answer from arduino
-        print(arduino)
-        while (arduino.isdigit() == False):
-            print("\nDeseja começar a aquisição?\n")
+        print(arduino) #prints the message from arduino, FATAL ERROR if self.option is not start and
+                       #the voltage value mapped to 0, 1023 if it is
+        while (arduino.isdigit() == False): #checks if arduino sent a number, if not then it sent FATAL ERROR
+                                            #and repeats what it did before again
+            print("\nDeseja começar a aquisição?")
             self.option=input("Escreva start:\n")
             ser.write(self.option.encode('utf-8'))
             arduino = ser.readline().decode('utf-8').rstrip()
             
-        
     def startMethod(self):
-        if self.startbutton.isEnabled(): #quando o startbutton esta enable o grafico está parado
-            if self.startbutton.text()=='stop':
-                print("tou ligado")
-                #self.startbutton.setEnabled(False)
-                self.startbutton.setText('start')
-                self.timer.stop()
-            else:
-                print("tou ligado1")
-                #self.startbutton.setEnabled(False)
-                self.startbutton.setText('stop')
-                self.timer.start()
-                
+        """
+        method for starting and stopping the acquisition with a button
+        """
+        if self.startbutton.isEnabled(): #if the start button is clicked, then check for the other conditions to start/stop
+            if self.startbutton.text()=='Stop': #if the sbutton says stop, then the graph is going
+                print("Stopping Acquisition...")
+                self.startbutton.setText('Start') #changes the text to start again
+                self.timer.stop() #stops the timer stopping the acquisition
+            elif self.startbutton.text()=='Start': #if the button says start, then the graph is stopped
+                print("Resuming Acquisition...")
+                self.startbutton.setText('Stop') #changes the text to sgtop again
+                self.timer.start() #starts the timer to resume acquisition                
                 
     def clearMethod(self):
         if self.clearbutton.isEnabled(): #quando o startbutton esta enable o grafico está parado
