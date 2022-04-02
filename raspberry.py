@@ -22,23 +22,24 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
         self.clearbutton.move(120,0)
 
         self.x = list(range(100))  #graph displays 100 points from 0 to 99 on x
-        self.y = [600] * 100  #and 100 points at 0 initially for y
+        self.y = [0] * 100  #and 100 points at 0 initially for y
         
         self.option = ''
 
         self.graphWidget.setBackground('k') #setting background color to black
         pen = pg.mkPen(color=(0, 157, 224)) #setting the line color to ist blue
         
-        
-        
-        self.data_line =  self.graphWidget.plot(self.x, self.y, pen=pen)
-        self.timer = QtCore.QTimer()
+        self.data_line =  self.graphWidget.plot(self.x, self.y, pen=pen) #initializes the line for the data
+        self.timer = QtCore.QTimer() #initializes the timer
         self.timer.setInterval(1)
-        self.timer.timeout.connect(self.update_plot_data)
-        self.timer.start()
+        self.timer.timeout.connect(self.update_plot_data) #iterates through the function update_plot_data while the timer is counting
+        self.timer.start() #starts the timer
         
     def initialQuestion(self):
-        
+        """
+        sends the initial question to the user to start (or not) the acquisition
+        saves the option the user picks in the variable self.option and then always sends it to arduino
+        """
         print("Deseja começar a aquisição?\n")
         self.option=input("Escreva start\n")
         ser.write(self.option.encode('utf-8'))
