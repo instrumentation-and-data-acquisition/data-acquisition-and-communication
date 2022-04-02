@@ -103,7 +103,7 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
                 #    print(aux)
                 #   self.y[self.i] = int(aux)
                 #else:
-            if (aux.isdigit()):
+            if (arduino.isdigit()):
                 self.y = self.y[1:]
                 self.y.append(int(arduino))
                 #++self.i
