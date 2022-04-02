@@ -16,9 +16,12 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
         self.setCentralWidget(self.graphWidget) # centring the graph
 
         self.startbutton = QPushButton('Stop',self) #creating a stop button to stop acquisition
+        self.startbutton.setStyleSheet("background-color: #009de0")
         self.startbutton.clicked.connect(self.startMethod) #calling the method to stop the acquisition
         
+        
         self.clearbutton = QPushButton('Clear',self) #creating a clear button to clear the graph and start again
+        self.clearbutton.setStyleSheet("background-color: #009de0")
         self.clearbutton.clicked.connect(self.clearMethod) #calling the method to clear the graph
         self.clearbutton.move(120,0)
 
