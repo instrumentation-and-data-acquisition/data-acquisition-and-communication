@@ -41,9 +41,10 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
         saves the option the user picks in the variable self.option and then always sends it to arduino
         """
         print("Deseja começar a aquisição?\n")
-        self.option=input("Escreva start\n")
-        ser.write(self.option.encode('utf-8'))
-        dummyRead = ser.readline().decode('utf-8').rstrip()
+        self.option=input("Escreva start\n") #gets input from the user and saves it to self.option
+        ser.write(self.option.encode('utf-8')) #sends self.option to the serial for arduino to read
+        arduino = ser.readline().decode('utf-8').rstrip() # reads the answer from arduino
+        print(arduino)
         while self.option!='start':
             error = ser.readline().decode('utf-8').rstrip() # read só funciona tendo write
             print(error)
@@ -95,8 +96,9 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
             #    print(aux)
             #   self.y[self.i] = int(aux)
             #else:
-        self.y = self.y[1:]
-        self.y.append(int(aux))
+        if (aux.isdigit()):
+            self.y = self.y[1:]
+            self.y.append(int(aux))
             #++self.i
         #line = ser.readline().decode('utf-8').rstrip()
         print(aux)
