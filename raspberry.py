@@ -43,18 +43,13 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
         print("Deseja começar a aquisição?\n")
         self.option=input("Escreva start\n") #gets input from the user and saves it to self.option
         ser.write(self.option.encode('utf-8')) #sends self.option to the serial for arduino to read
-        arduino = ser.readline().decode('utf-8').rstrip() # reads the answer from arduino
-        print(arduino)
-        arduino = ser.readline().decode('utf-8').rstrip() # reads the answer from arduino
-        print(arduino)
-        while self.option!='start':
-            #error = ser.readline().decode('utf-8').rstrip() # read só funciona tendo write
-            #print(error)
+        dummyRead = ser.readline().decode('utf-8').rstrip() #arduino sends in a first line that is blank
+        arduino = ser.readline().decode('utf-8').rstrip() # reads the proper answer from arduino
+        while (arduino.isdigit() == False):
             print("Deseja começar a aquisição?\n")
             self.option=input("Escreva start\n")
             ser.write(self.option.encode('utf-8'))
-            error = ser.readline().decode('utf-8').rstrip()
-            print(error)
+            arduino = ser.readline().decode('utf-8').rstrip()
             
         
     def startMethod(self):
