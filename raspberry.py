@@ -44,7 +44,7 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
         self.option=input("Escreva start\n") #gets input from the user and saves it to self.option
         ser.write(self.option.encode('utf-8')) #sends self.option to the serial for arduino to read
         arduino = ser.readline().decode('utf-8').rstrip() # reads the answer from arduino
-        sleep(500)
+        time.sleep(500)
         print(arduino)
         while self.option!='start':
             #error = ser.readline().decode('utf-8').rstrip() # read só funciona tendo write
