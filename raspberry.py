@@ -24,13 +24,10 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
         self.x = list(range(100))  #graph displays 100 points from 0 to 99 on x
         self.y = [600] * 100  #and 100 points at 0 initially for y
         
-        self.i = 0 #iteration variable for update_plot_data fucntion
-
         self.option = ''
 
-        self.graphWidget.setBackground('w')
-
-        pen = pg.mkPen(color=(255, 0, 0))
+        self.graphWidget.setBackground('k') #setting background color to black
+        pen = pg.mkPen(color=(0, 157, 224)) #setting the line color to ist blue
         
         
         
