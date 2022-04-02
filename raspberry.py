@@ -54,6 +54,7 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
             ser.write(self.option.encode('utf-8'))
             dummyRead = ser.readline().decode('utf-8').rstrip()
             arduino = ser.readline().decode('utf-8').rstrip()
+            print(arduino)
             
     def startMethod(self):
         """
