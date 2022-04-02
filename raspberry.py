@@ -46,8 +46,8 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
         arduino = ser.readline().decode('utf-8').rstrip() # reads the answer from arduino
         print(arduino)
         while self.option!='start':
-            error = ser.readline().decode('utf-8').rstrip() # read só funciona tendo write
-            print(error)
+            #error = ser.readline().decode('utf-8').rstrip() # read só funciona tendo write
+            #print(error)
             print("Deseja começar a aquisição?\n")
             self.option=input("Escreva start\n")
             ser.write(self.option.encode('utf-8'))
