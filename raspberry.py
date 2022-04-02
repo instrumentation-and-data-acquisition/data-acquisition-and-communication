@@ -52,6 +52,7 @@ class MainWindow(QtWidgets.QMainWindow,): #class made for creating the window an
             print("\nDeseja começar a aquisição?")
             self.option=input("Escreva start:\n")
             ser.write(self.option.encode('utf-8'))
+            dummyRead = ser.readline().decode('utf-8').rstrip()
             arduino = ser.readline().decode('utf-8').rstrip()
             
     def startMethod(self):
